@@ -1,23 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import { Container } from "react-bootstrap";
+import "./App.css";
+import { DateCount } from "./Components/DateCount";
+import { DatesAction } from "./Components/DatesAction";
+import { ListReminder } from "./Components/ListReminder";
+import myData from "./Data";
 
 function App() {
+  const [data, setData] = useState(myData);
+  const delData = () => {
+    setData([]);
+  };
+
+  const viewData = () => {
+    setData(myData);
+  };
+
+  useEffect(() => {
+    setData([]);
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Container>
+        <DateCount myData={data} />
+        <ListReminder myData={data} />
+        <DatesAction deleteData={delData} viewData={viewData} />
+      </Container>
     </div>
   );
 }
